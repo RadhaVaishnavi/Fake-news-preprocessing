@@ -676,3 +676,326 @@ obj.volume();
 } 
 }
 
+
+Exercise - 7 (Exception)
+a).Write a JAVA program that describes exception handling mechanism.
+Program 1: (Without Try - Catch Block )
+ExceptionDemo1.java
+import java.util.Scanner;
+class ExceptionDemo1
+{
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter first number : ");
+int n1 = sc.nextInt();
+ System.out.print("Enter second number : ");
+int n2 = sc.nextInt();
+int n3 = n1 / n2;
+System.out.println(" n1 / n2 = " + n3);
+}
+}
+
+/////////////////////////////////
+
+
+ExceptionDemo2 .java
+import java.util.Scanner;
+class ExceptionDemo2
+{
+public static void main(String[] args)
+{
+ try
+ {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter first number : ");
+int n1 = sc.nextInt();
+ System.out.print("Enter second number : ");
+int n2 = sc.nextInt();
+int n3 = n1 / n2;
+System.out.println(" n1 / n2 = " + n3);
+ } catch (ArithmeticException ae)
+ {
+ System.out.println("n1 / n2 = " + Double.POSITIVE_INFINITY);
+ }
+}
+}
+
+/////////////////////////////////////////
+
+b).Write a JAVA program Illustrating Multiple catch clauses.
+ExceptionDemo3 .java
+import java.util.Scanner;
+import java.util.InputMismatchException;
+class ExceptionDemo3
+{
+public static void main(String[] args)
+{
+ try
+ {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter first number : ");
+int n1 = sc.nextInt();
+ System.out.print("Enter second number : ");
+int n2 = sc.nextInt();
+int n3 = n1 / n2;
+System.out.println(" n1 / n2 = " + n3);
+ } catch (ArithmeticException ae)
+ {
+ System.out.println("n1 / n2 = " + Double.POSITIVE_INFINITY);
+ }
+ catch (InputMismatchException ie)
+ {
+ System.out.println("You should enter integer only." );
+ }
+}
+}
+
+//////////////////////////////////
+
+Exercise – 8 (Runtime Polymorphism)
+a). Write a JAVA program that implements Runtime polymorphism
+OverridingDemo.java
+class Animal {
+ void show() {
+ System.out.println("I am a generic Animal.");
+ }
+}
+class Dog extends Animal {
+ void show() {
+ System.out.println("I am a Dog.");
+ }
+}
+class Cow extends Animal {
+ void show() {
+ System.out.println("I am a Cow.");
+ }
+}
+class Snake extends Animal {
+ void show() {
+ System.out.println("I am a Snake.");
+ }
+}
+class OverridingDemo
+{
+ public static void main(String[] args) {
+ Animal ref1;
+ ref1 = new Animal();
+ ref1.show();
+ ref1 = new Dog();
+ ref1.show();
+ ref1 = new Cow();
+ ref1.show();
+ ref1 = new Snake();
+ ref1.show();
+ }
+}
+
+/////////////////////
+b). Write a Case study on run time polymorphism, inheritance that implements in above problem.
+Polymorphism is the capability of an action or method to do different things based on the object
+that it is acting upon. In other words, polymorphism allows you define one interface and have multiple
+implementations. This is one of the basic principles of object oriented programming.
+Polymorphism in Java has two types: Compile time polymorphism (static binding) and Runtime
+polymorphism (dynamic binding). Method overloading is an example of static polymorphism, while
+method overriding is an example of dynamic polymorphism. You can have a method in subclass
+overrides the method in its super classes with the same name and signature. Java virtual machine
+determines the proper method to call at the runtime, not at the compile time.
+Now we are going to study the above example:
+ Animal ref1; // a reference variable of super class type ‘Animal’
+
+ ref1 = new Animal();
+ ---- reference ‘ref1’ is now referencing to the object of Animal class.
+ ref1.show(); // prints the output : I am a generic Animal. ( implementation from Animal class.)
+ In java, all non static and non final methods in a class are virtual methods. So they exhibits dynamic
+polymorphism. When JVM going to execute the overridden methods, the method implementation is
+selected based on type of the object referred , but not the type of reference variable.
+ ref1 = new Dog();
+ ---- reference ‘ref1’ is now referencing to the object of Dog class, which is sub class to the Animal
+class. ( also known as upcasting )
+ ref1.show(); // prints the output : I am a Dog . ( implementation from Dog class.)
+ ref1 = new Cow();
+ ---- reference ‘ref1’ is now referencing to the object of Cow class, which is sub class to the
+Animal class.
+ ref1.show(); // prints the output : I am a Cow . ( implementation from Cow class.)
+ ref1 = new Snake();
+ ---- reference ‘ref1’ is now referencing to the object of Snake class, which is sub class to the
+Animal class.
+ ref1.show(); // prints the output : I am a Snake . ( implementation from Snake class.)
+Rules for method overriding:
+• In java, a method can only be overridden in Subclass, not in same class.
+• The argument list should be exactly the same as that of the overridden method.
+• The return type should be the same or a subtype of the return type declared in the original
+overridden method in the super class.
+• The access level cannot be more restrictive than the overridden method’s access level. For
+example: if the super class method is declared public then the overridden method in the sub
+class cannot be either private or protected.
+• Instance methods can be overridden only if they are inherited by the subclass.
+• A method declared final cannot be overridden.
+• A method declared static cannot be overridden but can be re-declared.
+• If a method cannot be inherited then it cannot be overridden.
+• A subclass within the same package as the instance’s superclass can override any superclass
+method that is not declared private or final.
+• A subclass in a different package can only override the non-final methods declared public or
+protected.
+• An overriding method can throw any uncheck exceptions, regardless of whether the overridden
+method throws exceptions or not. However the overriding method should not throw checked
+exceptions that are new or broader than the ones declared by the overridden method. The
+overriding method can throw narrower or fewer exceptions than the overridden method.
+• Constructors cannot be overridden.
+/////////////////////////////////
+a). Write a JAVA program for creation of Illustrating throw.
+ThrowDemo.java
+import java.util.Scanner;
+class NotEligibleException extends Exception
+{
+public String toString()
+{
+ return "You are not eligible for voting..";
+}
+}
+class ThrowDemo
+{
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+try
+{
+System.out.print("Enter your age : ");
+int age = sc.nextInt();
+if(age < 18)
+{
+throw new NotEligibleException();
+} else {
+System.out.println("Welcome! You are eligible for voting!");
+}
+}
+catch (NotEligibleException ne)
+{
+System.out.println(ne);
+}
+}
+}
+////////////////////////
+
+b). Write a JAVA program for creation of Illustrating finally.
+TransactionTest.java
+import java.util.Scanner;
+class WrongPinException extends Exception
+{
+public String toString()
+{
+return "you entered wrong pin number..";
+}
+}
+class TransactionTest
+{
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+double balance = 25000.0;
+int pin = 1234;
+String status = "Transaction failed..";
+System.out.println("Your current balance : Rs." + balance);
+try
+{
+System.out.print("Enter the withdraw amount : ");
+double amount = sc.nextDouble();
+System.out.print("Enter your pin : ");
+int num = sc.nextInt();
+if(num != pin)
+{
+throw new WrongPinException();
+}
+balance = balance - amount;
+ status = "Transaction successful..";
+}
+catch (WrongPinException pe)
+{
+System.out.println(pe);
+}
+finally
+{
+System.out.println("This is finally block...");
+System.out.println(status);
+System.out.println("Your fresh balance is : " + balance);
+System.out.println("your account is closed...");
+}
+}
+}
+
+/////////////////////
+c). Write a JAVA program for creation of Java Built-in Exceptions.
+BuiltInException.java
+class BuiltInException
+{
+ public Object createException()
+ {
+Class c = null;
+Object obj = null;
+try {
+ c = Class.forName("java.lang.ArithmeticException");
+ } catch (ClassNotFoundException e) {
+ e.printStackTrace();
+ }
+try {
+ obj = c.newInstance();
+ } catch (InstantiationException e) {
+ e.printStackTrace();
+ } catch (IllegalAccessException e) {
+ e.printStackTrace();
+ }
+return obj;
+ }
+ public static void main(String[] args)
+ {
+ BuiltInException b = new BuiltInException();
+ try
+ {
+ throw (Exception)b.createException();
+} catch (Exception e) {
+ System.out.println("Object of \"" + e + "\" is instantiated..");
+}
+ }
+}
+
+//////////////////////////////
+Exercise – 12 (Packages)
+a). Write a JAVA program illustrate class path.
+Steps working with packages and CLASSPATH :
+1. create a base folder : d:\javalab. In the base folder create a sub folder named myprograms. Now the
+complete base directory path is : "d:\javalab\myprograms ".
+2. Now create a source program which is defined with package as below :
+Circle.java
+package com.aditya.demo;
+public class Circle
+{
+ double radius;
+public Circle(double r)
+{
+radius = r;
+}
+public void area()
+{
+System.out.println("Area : " + (3.1415*radius*radius));
+}
+public static void main(String[] args)
+{
+Circle c1 = new Circle(12.5);
+c1.area();
+}
+}
+3. Save the file as Circle.java in the folder "d:\javalab\myprograms ".
+4. Now compile the program with the command as below :
+ D:\javalab\myprograms\> javac -d . Circle.java
+5. Now the generated .class file is stored in the created sub directory path as below :
+D:\javalab\myprograms\com\aditya\demo\Circle.class
+6. In the above path "d:\javalab\myprograms " is called base directory path, and "com\aditya\demo " is
+called package directory path.
+7. Now in the Environment variables, set CLASSPATH variable as below:
+ CLASSPATH=.; d:\javalab\myprograms ;
+ And save the variable. ( now base directory path is included in CLASSPATH variable.
+8. Now again open the command window , and execute the java program as below :
+D:\javalab\myprograms\> java com.aditya.demo.Circle 
+b). Write a case study on including in class path in your os environment of your package. Package A package is a collection of related Java entities (such as classes, interfaces, exceptions, errors and enums). Packages are used for: 1. Resolving naming conflict of classes by prefixing the class name with a package name. For example, com.zzz.Circle and com.yyy.Circle are two distinct classes. Although they share the same class name Circle, but they belong to two different packages: com.zzz and com.yyy. These two classes can be used in the same program and distinguished using the fully-qualified class name - package name plus class name. This mechanism is called Namespace Management. 2. Access Control: Besides public and private, Java has two access control modifiers – protected and default – that are related to package. A protected entity is accessible by classes in the same package and its subclasses. An entity without access control modifier (i.e., default) is accessible by classes in the same package only. 3. For distributing a collection of reusable classes, usually in a format known as Java Archive (JAR) file. Package Naming Convention A package name is made up of the reverse of the Internet Domain Name (to ensure uniqueness) plus your own organization's internal project name, separated by dots '.'. Package names are in lowercase. For example, suppose that your Internet Domain Name is "zzz.com", you can name your package as "com.zzz.project1.subproject2". Package Name & the Directory Structure The package name is closely associated with the directory structure used to store the classes. The classes (and other entities) belonging to a specific package are stored together in the same directory. Furthermore, they are stored in a sub-directory structure specified by its package name. For example, the class Circle of package com.zzz.project1.subproject2 is stored as "$BASE_DIR\com\zzz\project1\subproject2\Circle.class", where $BASE_DIR denotes the base directory of the package. Clearly, the "dot" in the package name corresponds to a sub-directory of the file system. The base directory ($BASE_DIR) could be located anywhere in the file system. Hence, the Java compiler and runtime must be informed about the location of the $BASE_DIR so as to locate the classes. This is accomplished by an environment variable called CLASSPATH. CLASSPATH is similar to another environment variable PATH, which is used by the command shell to search for the executable programs. Steps working with packages and CLASSPATH : 1. create a base folder : d:\javalab. In the base folder create a sub folder named myprograms. Now the complete base directory path is : "d:\javalab\myprograms ". 2. Now create a source program which is defined with package com.aditya.demo. 3. Save the file as Circle.java in the folder "d:\javalab\myprograms ". 4. Now compile the program with the command as below : D:\javalab\myprograms\> javac -d . Circle.java 5. Now the generated .class file is stored in the created sub directory path as below : D:\javalab\myprograms\com\aditya\demo\Circle.class 6. In the above path "d:\javalab\myprograms " is called base directory path, and "com\aditya\demo " is called package directory path. 7. Now in the Environment variables, set CLASSPATH variable as below: CLASSPATH=.; d:\javalab\myprograms ; And save the variable. ( now base directory path is included in CLASSPATH variable. 8. Now again open the command window , and execute the java program as below : D:\javalab\myprograms\> java com.aditya.demo.Circle When programming in Java, you make other classes available to the class you are writing by putting something like this at the top of your source file. The Java Virtual Machine will know where to find your compiled class. It would be impractical to have the VM look through every folder on your machine, so you have to provide the VM a list of places to look. This is done by putting folder and jar files on your classpath. So, classpaths contain:  JAR files, and•  Paths to the top of package hierarchies.• CLASSPATH can be set in one of the following ways: CLASSPATH can be set permanently in the environment: In Windows, choose control panel ⇒ System ⇒ Advanced ⇒ Environment Variables ⇒ choose "System Variables" (for all the users) or "User Variables" (only the currently login user) ⇒ choose "Edit" (if CLASSPATH already exists) or "New" ⇒ Enter "CLASSPATH" as the variable name ⇒ Enter the required directories and JAR files (separated by semicolons) as the value (e.g., ".;c:\javaproject\classes;d:\tomcat\lib\servlet-api.jar"). Take note that you need to include the current working directory (denoted by '.') in the CLASSPATH. To check the current setting of the CLASSPATH, issue the following command: > SET CLASSPATH CLASSPATH can be set temporarily for that particular CMD shell session by issuing the following command: > SET CLASSPATH=.;c:\javaproject\classes;d:\tomcat\lib\servlet-api.jar Instead of using the CLASSPATH environment variable, you can also use the command-line option -classpath or - cp of the javac and java commands, for example, > java –classpath c:\javaproject\classes com.abc.project1.subproject2.MyClass
+
